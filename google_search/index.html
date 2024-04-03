@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Search Engine</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    #search-container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    #search-input {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+    #search-button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    #results-container {
+        margin-top: 20px;
+    }
+    .result-item {
+        margin-bottom: 10px;
+    }
+</style>
+</head>
+<body>
+<div id="search-container">
+    <input type="text" id="search-input" placeholder="Enter your search query">
+    <button id="search-button">Search</button>
+</div>
+<div id="results-container"></div>
+
+<script>
+document.getElementById("search-button").addEventListener("click", function() {
+    var query = document.getElementById("search-input").value;
+    if (query.trim() !== "") {
+        fetchGoogleSearch(query);
+    }
+});
+
+function fetchGoogleSearch(query) {
+    var apiKey = "AIzaSyC53a6ZngQKZMTWVMIBwlh3Zf2UErNYuFk"; // Replace with your Google Custom Search API key
+    var cx = "e0855752f146e46ac"; // Replace with your Google Custom Search Engine ID
+    var url = `https://www.googleapis.com/customsearch/v1?q=${encodeURIComponent(query)}&key=${apiKey}&cx=${cx}`;
+
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            displaySearchResults(data);
+        })
+        .catch(error => {
+            console.error('There was a problem with your fetch operation:', error);
+        });
+}
+
+function displaySearchResults(data) {
+    var resultsContainer = document.getElementById("results-container");
+    resultsContainer.innerHTML = "";
+
+    if (data.items) {
+        data.items.forEach(item => {
+            var resultItem = document.createElement("div");
+            resultItem.classList.add("result-item");
+            resultItem.innerHTML = `
+                <h3><a href="${item.link}" target="_blank">${item.title}</a></h3>
+                <p>${item.snippet}</p>
+            `;
+            resultsContainer.appendChild(resultItem);
+        });
+    } else {
+        resultsContainer.innerHTML = "<p>No results found.</p>";
+    }
+}
+</script>
+</body>
+</html>
