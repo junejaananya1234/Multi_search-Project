@@ -3,12 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <title>Google Search Engine</title>
 <style>
     body {
         font-family: Arial, sans-serif;
     }
-    #search-container {
+     
+    *{
+        padding:0;
+        margin:0;
+    }
+    /* #search-container {
         max-width: 600px;
         margin: 20px auto;
         padding: 20px;
@@ -32,23 +39,36 @@
         border: none;
         border-radius: 5px;
         cursor: pointer;
-    }
+    } */
     #results-container {
         margin-top: 20px;
+        width:600px;
+        padding-left: 10%;
     }
     .result-item {
         margin-bottom: 10px;
     }
+    h3 a{
+        color:blue;
+    }
 </style>
 </head>
-<body>
-<div id="search-container">
-    <input type="text" id="search-input" placeholder="Enter your search query">
-    <button id="search-button">Search</button>
-</div>
-<div id="results-container"></div>
+<body> 
 
-<script>
+<div id="search-container" class="flex w-full p-4 justify-between ">
+    <div class="flex">
+     <img src="images/googlelogo-removebg-preview.png" height="120px" width="120px" >
+  <div class=""> <input type="search" id="search-input" placeholder="google search.." class="h-10 w-[500px]  m-7 p-2 outline-none shadow-md rounded-full shadow-current">
+</div>
+     
+    <button id="search-button"><i class="fa-solid fa-magnifying-glass "></i></button></div>
+    <div class="flex gap-5 p-7">
+    <div><i class="fa-solid fa-bars"></i></div>
+    <div class="h-6 w-7 hover:bg-slate-400"><img src="images/female-2022387_1280.png" class="rounded-full  border border-solid border-gray-950 hover:bg-slate-400"></div></div>
+</div>
+<div id="results-container"></div> 
+
+ <script>
 document.getElementById("search-button").addEventListener("click", function() {
     var query = document.getElementById("search-input").value;
     if (query.trim() !== "") {
@@ -96,4 +116,4 @@ function displaySearchResults(data) {
 }
 </script>
 </body>
-</html>
+</html> 

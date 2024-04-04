@@ -5,7 +5,7 @@ let count =1;
 const formElement = document.getElementById("formElement");
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
-    const API_KEY = "AIzaSyBIEScln1EtBCi61VYNPaogJ8U7Fe-LFEA";
+    const API_KEY = "AIzaSyCd1vuPn5JiYHJTvKWH8yHso6XLqTN7wWo";
 
 // Access your API key (see "Set up your API key" above)
 const genAI = new GoogleGenerativeAI(API_KEY);
@@ -158,7 +158,7 @@ left_header.addEventListener("click",()=>{
 })
 
 
-// let apiKey = "AIzaSyBIEScln1EtBCi61VYNPaogJ8U7Fe-LFEA";
+
 
 let inputImage = document.getElementById("inputImage");
 let iconInputImageBtn = document.getElementById("iconInputImageBtn");
