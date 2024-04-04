@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wikipedia Search Engine</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="shortcut icon" href="images/Wikipedia_Logo_1.0-removebg-preview.png" type="image/x-icon">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    *{
+        padding: 0px;
+        margin : 0px;
+
+    }
+    /* #search-container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    #search-input {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+    #search-button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    } */
+    #results-container {
+        margin-top: 20px;
+        width:700px;
+        padding-left: 5%;
+    }
+    .result-item {
+        margin-bottom: 10px;
+    }
+    h3 a {
+        color:blue;
+    }
+</style>
+</head>
+<body>
+<div id="search-container" class="flex flex-col justify-center items-center m-16">
+    <div class="w-40 h-40"><img src="images/Wikipedia_Logo_1.0-removebg-preview.png"></div>
+    <div class=""> <input type="text" id="search-input" placeholder="Enter your search query" class="h-10 w-[500px]  border-solid border-black border-4 p-3 shadow-2xl"></div>
+    <div></div>
+   
+    <button id="search-button" class="m-3 bg-black text-white h-8 w-32">SEARCH</button>
+</div>
+<div id="results-container"></div>
+
+<script>
+document.getElementById("search-button").addEventListener("click", function() {
+    var query = document.getElementById("search-input").value;
+    if (query.trim() !== "") {
+        fetchWikipediaSearch(query);
+    }
+});
+
+function fetchWikipediaSearch(query) {
+    var url = `https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=${encodeURIComponent(query)}&origin=*`;
+
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            displaySearchResults(data);
+        })
+        .catch(error => {
+            console.error('There was a problem with your fetch operation:', error);
+        });
+}
+
+function displaySearchResults(data) {
+    var resultsContainer = document.getElementById("results-container");
+    resultsContainer.innerHTML = "";
+
+    if (data.query && data.query.search) {
+        data.query.search.forEach(item => {
+            var resultItem = document.createElement("div");
+            resultItem.classList.add("result-item");
+            resultItem.innerHTML = `
+                <h3><a href="https://en.wikipedia.org/wiki/${encodeURIComponent(item.title)}" target="_blank">${item.title}</a></h3>
+                <p>${item.snippet}</p>
+            `;
+            resultsContainer.appendChild(resultItem);
+        });
+    } else {
+        resultsContainer.innerHTML = "<p>No results found.</p>";
+    }
+}
+</script>
+</body>
+</html>

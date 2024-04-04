@@ -18,7 +18,7 @@
     </main> -->
     <main class="flex flex-col gap-7">
       <div class="text-5xl font-mono font-bold flex justify-center items-center typewriter ">How Can I Help you?</div>
-      <span class="flex justify-center items-center"><input type="search" name="gsearch" id="gsearch" placeholder="Tell us what you need to know.." class="w-[35%] h-10 p-3 outline-none border border-solid border-[#560bad] shadow-2xl rounded-full"></span>
+      
        
     </main>
      <!-- searching -->
@@ -30,7 +30,7 @@
        <button><img src="Assets/logo-removebg-preview.png" class="h-11 w-11 " id="gemini"></button> 
        </div>
        <div class="h-20 w-20 rounded-full  bg-[#00b4d8] bg-opacity-15 shadow-2xl flex justify-center items-center">
-     <button><img src="Assets/Wikipedia_Logo_1.0-removebg-preview.png" class="h-11 w-11"></button>   
+     <button><img src="Assets/Wikipedia_Logo_1.0-removebg-preview.png" class="h-11 w-11" id="wikipedia"></button>   
        </div>
      </section>
 
@@ -41,6 +41,11 @@
        })
 
         let gemini = document.getElementById('gemini');
+        gemini.addEventListener("click" , function(){
+         window.location.href = "Gemini_clone/index.html";
+        })
+
+        let wikipedia = document.getElementById('wikipedia');
         gemini.addEventListener("click" , function(){
          window.location.href = "Gemini_clone/index.html";
         })
